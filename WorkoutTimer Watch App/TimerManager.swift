@@ -10,15 +10,20 @@ import Combine
 import WatchKit
 
 class TimerManager: ObservableObject {
-    @Published var timeRemaining: Int = 30  // Default 30 seconds
+    @Published var timeRemaining: Int = 30  // Displayed time
     @Published var isRunning = false
+    @Published var selectedTime: Int = 30 { // When changed, update timeRemaining
+        didSet {
+            if !isRunning { timeRemaining = selectedTime }
+        }
+    }
     
     private var timer: Timer?
     
     func startTimer() {
         if isRunning { return }
         isRunning = true
-        
+
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             guard let self = self else { return }
             
@@ -39,7 +44,7 @@ class TimerManager: ObservableObject {
     
     func resetTimer() {
         timer?.invalidate()
-        timeRemaining = 30
+        timeRemaining = selectedTime // Reset to selected time
         isRunning = false
     }
     
@@ -48,4 +53,3 @@ class TimerManager: ObservableObject {
         isRunning = false
     }
 }
-

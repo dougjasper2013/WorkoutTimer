@@ -12,11 +12,24 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
+            // Picker - Allows user to set the countdown time
+            Picker("Set Timer", selection: $timerManager.selectedTime) {
+                ForEach(5...60, id: \.self) { time in
+                    Text("\(time) sec").tag(time)
+                }
+            }
+            .labelsHidden()
+            .pickerStyle(WheelPickerStyle())
+            .frame(height: 80)
+            .disabled(timerManager.isRunning) // Disable while running
+            
+            // Timer Display - Updates dynamically
             Text("\(timerManager.timeRemaining)")
                 .font(.system(size: 50, weight: .bold, design: .rounded))
                 .foregroundColor(.white)
                 .padding()
             
+            // Controls
             HStack {
                 Button(action: {
                     timerManager.startTimer()

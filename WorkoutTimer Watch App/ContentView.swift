@@ -108,10 +108,20 @@ struct ContentView: View {
         let minutes = (totalSeconds % 3600) / 60
         let seconds = totalSeconds % 60
         let hundredths = Int((time - Double(totalSeconds)) * 100) // Get hundredths of a second
-        return String(format: "%02d:%02d:%02d.%02d", hours, minutes, seconds, hundredths)
+        
+        // Conditionally format based on hours and minutes being 0
+        if hours == 0 && minutes == 0 {
+            // Hide both hours and minutes if both are 0
+            return String(format: "%02d.%02d", seconds, hundredths)
+        } else if hours == 0 {
+            // Hide hours if hours is 0 but minutes is not
+            return String(format: "%02d:%02d.%02d", minutes, seconds, hundredths)
+        } else {
+            // Default: Show hours, minutes, and seconds
+            return String(format: "%02d:%02d:%02d.%02d", hours, minutes, seconds, hundredths)
+        }
     }
 }
-
 
 #Preview {
     ContentView()

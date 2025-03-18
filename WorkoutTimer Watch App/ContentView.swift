@@ -112,13 +112,13 @@ struct ContentView: View {
         // Conditionally format based on hours and minutes being 0
         if hours == 0 && minutes == 0 {
             // Hide both hours and minutes if both are 0
-            return String(format: "%02d.%02d", seconds, hundredths)
+            return String(format: "%d.%02d", seconds, hundredths) // No leading zero for seconds
         } else if hours == 0 {
             // Hide hours if hours is 0 but minutes is not
-            return String(format: "%02d:%02d.%02d", minutes, seconds, hundredths)
+            return String(format: "%d:%02d.%02d", minutes, seconds, hundredths) // No leading zero for minutes and seconds
         } else {
             // Default: Show hours, minutes, and seconds
-            return String(format: "%02d:%02d:%02d.%02d", hours, minutes, seconds, hundredths)
+            return String(format: "%d:%02d:%02d.%02d", hours, minutes, seconds, hundredths) // Hours displayed without leading zero
         }
     }
 }
@@ -126,3 +126,4 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
+

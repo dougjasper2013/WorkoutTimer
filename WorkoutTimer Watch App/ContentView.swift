@@ -14,8 +14,8 @@ struct ContentView: View {
         VStack {
             // Picker - Allows user to set the countdown time
             Picker("Set Timer", selection: $timerManager.selectedTime) {
-                ForEach(5...60, id: \.self) { time in
-                    Text("\(time) sec").tag(time)
+                ForEach(Array(stride(from: 5.00, through: 60.00, by: 1.0)), id: \.self) { time in
+                    Text("\(time, specifier: "%.2f") sec").tag(time)
                 }
             }
             .labelsHidden()
@@ -23,8 +23,8 @@ struct ContentView: View {
             .frame(height: 80)
             .disabled(timerManager.isRunning) // Disable while running
             
-            // Timer Display - Updates dynamically
-            Text("\(timerManager.timeRemaining)")
+            // Timer Display - Shows hundredths of a second
+            Text("\(timerManager.timeRemaining, specifier: "%.2f")")
                 .font(.system(size: 50, weight: .bold, design: .rounded))
                 .foregroundColor(.white)
                 .padding()

@@ -10,9 +10,9 @@ import Combine
 import WatchKit
 
 class TimerManager: ObservableObject {
-    @Published var timeRemaining: Double = 30.00  // Displayed time in seconds
+    @Published var timeRemaining: Double = 0.00  // Displayed time in seconds
     @Published var isRunning = false
-    @Published var selectedTime: Double = 30.00 { // When changed, update timeRemaining
+    @Published var selectedTime: Double = 0.00 { // When changed, update timeRemaining
         didSet {
             if !isRunning { timeRemaining = selectedTime }
         }
